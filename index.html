@@ -57,6 +57,44 @@ header .pills{display:flex;gap:6px;flex-wrap:wrap;position:relative;z-index:1}
 header .pill{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.22);
   padding:3px 11px;border-radius:999px;font-size:12px;font-weight:500}
 
+/* ===== Top bar（左：三條槓選單／右：身分組） ===== */
+nav.topbar{
+  position:sticky;top:0;z-index:80;
+  display:flex;align-items:center;gap:8px;padding:8px 12px;
+  background:rgba(252,253,254,.94);backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+}
+.hamb{
+  flex:none;width:38px;height:38px;background:transparent;border:1px solid var(--line);
+  border-radius:12px;cursor:pointer;display:flex;flex-direction:column;
+  justify-content:center;align-items:center;gap:4px;transition:.2s
+}
+.hamb span{display:block;width:17px;height:2px;border-radius:2px;background:var(--fuji-deep);transition:.2s}
+.hamb.on{background:var(--fuji-soft);border-color:#CFE0F2}
+.hamb:active{transform:scale(.94)}
+.topbar .pagename{flex:1;min-width:0;font-size:13px;font-weight:900;color:var(--fuji-deep);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.topbar .rolebar{margin:0;flex:none;gap:6px}
+.topbar .roletag{flex:none;font-size:11.5px;padding:5px 9px;border-radius:10px}
+.topbar .rolebtn{font-size:11.5px;padding:5px 9px;border-radius:10px;white-space:nowrap}
+
+/* 三條槓下拉選單 */
+.menu{
+  position:absolute;top:calc(100% + 6px);left:12px;z-index:90;width:206px;
+  background:var(--snow);border:1px solid var(--line);border-radius:16px;
+  box-shadow:0 12px 30px rgba(43,52,64,.18);padding:6px;display:none
+}
+.menu.on{display:block;animation:fade .2s ease}
+.menu button{
+  width:100%;display:flex;align-items:center;gap:9px;background:none;border:none;
+  font-family:inherit;font-size:13.5px;font-weight:700;color:var(--ink);
+  padding:10px 11px;border-radius:12px;cursor:pointer;text-align:left
+}
+.menu button .ic{font-size:17px;line-height:1}
+.menu button.on{background:var(--fuji-soft);color:var(--fuji)}
+.menuback{position:fixed;inset:0;z-index:70;display:none}
+.menuback.on{display:block}
+
 /* ===== Tab pages ===== */
 .page{display:none;padding-top:16px;animation:fade .28s ease}
 .page.on{display:block}
@@ -345,6 +383,23 @@ footer.ft{text-align:center;font-size:11.5px;color:var(--sub);padding:18px 0 4px
 </style>
 </head>
 <body>
+<nav class="topbar">
+  <button class="hamb" id="btnMenu" aria-label="選單"><span></span><span></span><span></span></button>
+  <div class="pagename" id="pagename">📅 行程</div>
+  <div class="rolebar">
+    <span class="roletag" id="roletag">👀 觀看者</span>
+    <button class="rolebtn" id="btnRole">🔑 編輯</button>
+  </div>
+  <div class="menu" id="menu">
+    <button data-p="p-trip"><span class="ic">📅</span>行程</button>
+    <button data-p="p-route"><span class="ic">🗺</span>行程路線圖</button>
+    <button data-p="p-nav"><span class="ic">📍</span>一鍵導航</button>
+    <button data-p="p-park"><span class="ic">🅿️</span>停車資訊</button>
+    <button data-p="p-weather"><span class="ic">🌤</span>天氣</button>
+    <button data-p="p-guide"><span class="ic">🧰</span>指南</button>
+  </div>
+</nav>
+<div class="menuback" id="menuback"></div>
 <header>
   <div class="sub">OKINAWA ROAD TRIP</div>
   <h1>沖繩自由行 🌺</h1>
@@ -359,10 +414,6 @@ footer.ft{text-align:center;font-size:11.5px;color:var(--sub);padding:18px 0 4px
 
 <!-- ============ 行程 ============ -->
 <section class="page on" id="p-trip">
-  <div class="rolebar">
-    <span class="roletag" id="roletag">👀 觀看者</span>
-    <button class="rolebtn" id="btnRole">🔑 切換為編輯者</button>
-  </div>
   <div class="editbar">
     <button class="editbtn big" id="btnEdit">✏️ 編輯行程<small>新增 · 修改 · 排序 · 刪除</small></button>
     <button class="editbtn warn sm" id="btnReset">↩︎<small>還原</small></button>
@@ -393,9 +444,8 @@ footer.ft{text-align:center;font-size:11.5px;color:var(--sub);padding:18px 0 4px
   </div>
 </section>
 
-<!-- ============ 地圖 ============ -->
-<section class="page" id="p-map">
-  </div>
+<!-- ============ 行程路線圖 ============ -->
+<section class="page" id="p-route">
   <div class="sec-title"><h2>🗺 行程路線圖</h2><div class="ln"></div></div>
   <div class="routemap">
     <div class="rline"><div class="rdot">1</div><div class="rtext">
@@ -409,8 +459,17 @@ footer.ft{text-align:center;font-size:11.5px;color:var(--sub);padding:18px 0 4px
     <div class="rline"><div class="rdot">5</div><div class="rtext">
       <div class="rn">那霸 → 機場周邊</div><div class="rs">波上宮・港川・首里城・Outlet 一路向南</div></div></div>
   </div>
+</section>
+
+<!-- ============ 一鍵導航 ============ -->
+<section class="page" id="p-nav">
   <div class="sec-title"><h2>📍 一鍵導航</h2><div class="ln"></div></div>
   <div id="mapzone"></div>
+</section>
+
+<!-- ============ 停車資訊 ============ -->
+<section class="page" id="p-park">
+  <div class="sec-title"><h2>🅿️ 停車資訊</h2><div class="ln"></div></div>
   <div class="card" style="background:#EFF6F5;border-color:#D3E6E2">
     <div style="font-weight:900;font-size:14px;margin-bottom:6px">🅿️ 停車小技巧</div>
     <div style="font-size:12.5px;line-height:1.8;color:#3E5B55">
@@ -516,7 +575,7 @@ footer.ft{text-align:center;font-size:11.5px;color:var(--sub);padding:18px 0 4px
   <button class="on" data-p="p-trip"><span class="ic">📅</span>行程</button>
   <button data-p="p-guide"><span class="ic">🧰</span>指南</button>
   <button data-p="p-weather"><span class="ic">🌤</span>天氣</button>
-  <button data-p="p-map"><span class="ic">🗺</span>地圖</button>
+  <button data-p="p-nav"><span class="ic">📍</span>導航</button>
 </nav>
 <button class="fab" id="fab" onclick="addSpot()">＋ 新增景點</button>
 <div class="saved" id="toast">已儲存 ✓</div>
@@ -1098,7 +1157,7 @@ function applyRole(isEditor){
   const btn = document.getElementById('btnRole');
   tag.className = 'roletag' + (isEditor ? ' editor' : '');
   tag.textContent = isEditor ? '✏️ 編輯者' : '👀 觀看者';
-  btn.textContent = isEditor ? '🔒 鎖定（回到觀看）' : '🔑 切換為編輯者';
+  btn.textContent = isEditor ? '🔒 鎖定' : '🔑 編輯';
   if(!isEditor){
     // 退出編輯者時一併關掉編輯模式，避免殘留可編輯狀態
     document.body.classList.remove('editing');
@@ -1324,16 +1383,40 @@ function add(c){
 }
 drawPack();
 
-/* ---------- Tabs ---------- */
-document.querySelectorAll('nav.tabbar button').forEach(b=>{
-  b.onclick=()=>{
-    document.querySelectorAll('nav.tabbar button').forEach(x=>x.classList.remove('on'));
-    document.querySelectorAll('.page').forEach(x=>x.classList.remove('on'));
-    b.classList.add('on');
-    document.getElementById(b.dataset.p).classList.add('on');
-    window.scrollTo({top:0,behavior:'smooth'});
-  };
+/* ---------- Tabs + 三條槓選單 ---------- */
+const PAGENAME={
+  'p-trip':'📅 行程','p-route':'🗺 行程路線圖','p-nav':'📍 一鍵導航',
+  'p-park':'🅿️ 停車資訊','p-weather':'🌤 天氣','p-guide':'🧰 指南'
+};
+function closeMenu(){
+  document.getElementById('menu').classList.remove('on');
+  document.getElementById('menuback').classList.remove('on');
+  document.getElementById('btnMenu').classList.remove('on');
+}
+function goPage(id){
+  const pg=document.getElementById(id);
+  if(!pg) return;
+  document.querySelectorAll('.page').forEach(x=>x.classList.remove('on'));
+  pg.classList.add('on');
+  document.querySelectorAll('nav.tabbar button, .menu button').forEach(x=>{
+    x.classList.toggle('on', x.dataset.p===id);
+  });
+  document.getElementById('pagename').textContent = PAGENAME[id] || '';
+  closeMenu();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+document.querySelectorAll('nav.tabbar button, .menu button').forEach(b=>{
+  b.onclick=()=>goPage(b.dataset.p);
 });
+document.getElementById('btnMenu').onclick=()=>{
+  const m=document.getElementById('menu');
+  const open=!m.classList.contains('on');
+  m.classList.toggle('on',open);
+  document.getElementById('menuback').classList.toggle('on',open);
+  document.getElementById('btnMenu').classList.toggle('on',open);
+};
+document.getElementById('menuback').onclick=closeMenu;
+goPage('p-trip');
 </script>
 
 </body>
