@@ -373,7 +373,7 @@ footer.ft{text-align:center;font-size:11.5px;color:var(--sub);padding:18px 0 4px
     ✏️ 編輯模式已開啟：每張卡片下方可修改內容、排序、刪除，或按
     <b>「＋ 在此下方插入新景點」</b>新增。修改會自動儲存。
   </div>
-  <div class="dayswitch" id="dayswitch"><button class="on">Day 1<b>10/22</b></button><button class="">Day 2<b>10/23</b></button><button class="">Day 3<b>10/24</b></button><button class="">Day 4<b>10/25</b></button><button class="">Day 5<b>10/26</b></button></div>
+  <div class="dayswitch" id="dayswitch"><button class="on">Day 1<b>10/22</b></button><button class="">Day 2<b>10/23</b></button><button class="">Day 3<b>10/24</b></button><button class="">Day 4<b>10/25</b></button><button class="">Day 5<b>10/26</b></button><button class="on">Day 1<b>10/22</b></button><button class="">Day 2<b>10/23</b></button><button class="">Day 3<b>10/24</b></button><button class="">Day 4<b>10/25</b></button><button class="">Day 5<b>10/26</b></button></div>
   <div id="dayzone"><div class="dayhead"><div class="dt">DAY 1 · 10/22 (四)</div>
     <h3>落地 → 瀨長島夕陽 → 北上入住</h3><div class="rt">🧭 機場 → 瀨長島（看夕陽）→ 本部｜18:10 日落，夕陽優先</div></div><div class="spot move"><div class="top">
       <div class="hd"><span class="cat">交通</span><span class="tm">12:20</span></div>
@@ -2114,19 +2114,6 @@ const DAYS = [
  }
 ]
 
-const WEATHER = [
- {d:"10/22 (四)",c:"晴時多雲",i:"🌤",hi:29,lo:24,feel:31,rain:20,loc:"機場 → 瀨長島 → 本部",
-  wear:"短袖＋短褲。瀨長島海邊風大、日落後轉涼，薄外套別托運。"},
- {d:"10/23 (五)",c:"晴",i:"☀️",hi:30,lo:25,feel:32,rain:10,loc:"本部（海洋博）",
-  wear:"短袖＋防曬乳＋太陽眼鏡＋帽子。館內冷氣強，薄外套帶著。"},
- {d:"10/24 (六)",c:"多雲時晴",i:"⛅",hi:29,lo:24,feel:30,rain:30,loc:"古宇利 → 北谷",
-  wear:"短袖＋好走的鞋。古宇利橋上風極大，帽子要壓好。"},
- {d:"10/25 (日)",c:"多雲",i:"☁️",hi:28,lo:24,feel:29,rain:30,loc:"南城 → 那霸",
-  wear:"短袖＋防滑鞋。玉泉洞內約 21°C 且濕，務必帶薄外套。"},
- {d:"10/26 (一)",c:"晴時多雲",i:"🌤",hi:29,lo:24,feel:30,rain:20,loc:"那霸 → 機場",
-  wear:"短袖＋好走的鞋。機上冷氣強，薄外套放隨身包。"}
-];
-
 const MAPS = [
  ["沖縄美ら海水族館","美麗海水族館","Day2 · 免費大停車場"],
  ["古宇利大橋","古宇利大橋","Day3 · 485 662 831*22"],
@@ -2150,7 +2137,7 @@ const PACK = {
 };
 
 /* ---------- 行程 ---------- */
-const BUILD = 1786204885709; /*BUILD_STAMP*/
+const BUILD = 1786208779482; /*BUILD_STAMP*/
 const DEFAULTS = JSON.parse(JSON.stringify(DAYS));
 let DATA = load();
 let cur = 0;
