@@ -267,6 +267,24 @@ nav.tabbar button:active{transform:scale(.94)}
   padding:11px;margin-bottom:10px;font-family:inherit;font-weight:700;font-size:13.5px;
   color:var(--fuji-deep);cursor:pointer}
 .exportbtn:active{transform:scale(.97)}
+.exportbtn.pub{background:linear-gradient(135deg,#4FAE9B,#2F7D6E);color:#fff;border-color:#2F7D6E;
+  box-shadow:0 4px 14px rgba(79,174,155,.28)}
+.exportbtn.pub:disabled{opacity:.55;cursor:default;box-shadow:none}
+.pubstate{display:none;margin:-4px 0 10px;padding:8px 11px;border-radius:11px;
+  font-size:12.5px;font-weight:600;line-height:1.5}
+.pubstate.on{display:block}
+.pubstate.ok{background:#E7F4F0;color:#2F7D6E}
+.pubstate.err{background:#FBEAE2;color:#C4552C}
+.pubstate.wait{background:var(--snow);color:var(--fuji-deep)}
+.rolebar{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.roletag{flex:1;font-size:12.5px;font-weight:700;padding:7px 11px;border-radius:11px;
+  background:var(--snow);color:var(--fuji-deep)}
+.roletag.editor{background:#E7F4F0;color:#2F7D6E}
+.rolebtn{background:transparent;border:1px solid var(--line);border-radius:11px;
+  padding:7px 11px;font-size:12.5px;font-weight:600;color:var(--fuji-deep);cursor:pointer}
+.rolebtn:active{transform:scale(.96)}
+body.viewer .editbar,body.viewer #btnPublish,body.viewer #pubstate,
+body.viewer #btnExport,body.viewer #edithint{display:none!important}
 .editbtn.big{flex:3;background:linear-gradient(135deg,var(--fuji),var(--fuji-deep));color:#fff;
   border-color:var(--fuji);box-shadow:0 4px 14px rgba(62,110,168,.28);padding:12px 10px;font-size:15px}
 .editbtn.big.on{background:linear-gradient(135deg,#4FAE9B,#2F7D6E);border-color:#2F7D6E;
@@ -341,10 +359,16 @@ footer.ft{text-align:center;font-size:11.5px;color:var(--sub);padding:18px 0 4px
 
 <!-- ============ 行程 ============ -->
 <section class="page on" id="p-trip">
+  <div class="rolebar">
+    <span class="roletag" id="roletag">👀 觀看者</span>
+    <button class="rolebtn" id="btnRole">🔑 切換為編輯者</button>
+  </div>
   <div class="editbar">
     <button class="editbtn big" id="btnEdit">✏️ 編輯行程<small>新增 · 修改 · 排序 · 刪除</small></button>
     <button class="editbtn warn sm" id="btnReset">↩︎<small>還原</small></button>
   </div>
+  <button class="exportbtn pub" id="btnPublish">☁️ 發布更新（讓所有人看到）</button>
+  <div class="pubstate" id="pubstate"></div>
   <button class="exportbtn" id="btnExport">📤 匯出最新版（傳給同行的人）</button>
   <div class="edithint" id="edithint">
     ✏️ 編輯模式已開啟：每張卡片下方可修改內容、排序、刪除，或按
@@ -984,27 +1008,83 @@ function addSpot(){
   setTimeout(()=>window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'}),100);
 }
 
+/* ============ 身分組：觀看者 / 編輯者 ============
+   注意：這是「防手滑」層級的保護，不是資安機制。
+   密碼寫在前端原始碼裡，懂技術的人查看原始碼就能看到。
+   真正擋住修改線上版的是 GitHub 權杖（只存在你自己裝置）。 */
+const EDIT_PW  = '1234';
+const ROLE_KEY = 'okinawa_role';
+
+function applyRole(isEditor){
+  document.body.classList.toggle('viewer', !isEditor);
+  const tag = document.getElementById('roletag');
+  const btn = document.getElementById('btnRole');
+  tag.className = 'roletag' + (isEditor ? ' editor' : '');
+  tag.textContent = isEditor ? '✏️ 編輯者' : '👀 觀看者';
+  btn.textContent = isEditor ? '🔒 鎖定（回到觀看）' : '🔑 切換為編輯者';
+  if(!isEditor){
+    // 退出編輯者時一併關掉編輯模式，避免殘留可編輯狀態
+    document.body.classList.remove('editing');
+    const be = document.getElementById('btnEdit');
+    be.classList.remove('on');
+    be.textContent = '✏️ 編輯行程';
+  }
+}
+
+document.getElementById('btnRole').onclick = () => {
+  if(document.body.classList.contains('viewer')){
+    const pw = prompt('請輸入編輯者密碼：');
+    if(pw === null) return;
+    if(pw.trim() !== EDIT_PW){ alert('密碼錯誤'); return; }
+    localStorage.setItem(ROLE_KEY, 'editor');
+    applyRole(true);
+  }else{
+    localStorage.removeItem(ROLE_KEY);
+    applyRole(false);
+  }
+};
+
+applyRole(localStorage.getItem(ROLE_KEY) === 'editor');
+
 document.getElementById('btnEdit').onclick=function(){
   document.body.classList.toggle('editing');
   const on=document.body.classList.contains('editing');
   this.classList.toggle('on',on);
   this.textContent = on?'✅ 完成編輯':'✏️ 編輯行程';
 };
+// 取頁面自身原始碼，把目前資料寫回 DAYS 並蓋上新版本戳。
+// 不用 fetch，故 file:// 與預覽環境皆可用。匯出與發布共用。
+function buildHTML(){
+  // 先清掉暫時性 UI 狀態，避免把「發布中…」之類的字樣一起烤進檔案
+  const ps = document.getElementById('pubstate');
+  const pb = document.getElementById('btnPublish');
+  const keep = {cls: ps.className, txt: ps.textContent, dis: pb.disabled,
+                body: document.body.className};
+  ps.className = 'pubstate'; ps.textContent = ''; pb.disabled = false;
+  // 身分／編輯狀態由載入時的 JS 決定，不可烤進檔案（否則所有人一開就是編輯者）
+  document.body.classList.remove('editing', 'viewer');
+
+  let html;
+  try{
+    html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+  } finally {
+    ps.className = keep.cls; ps.textContent = keep.txt; pb.disabled = keep.dis;
+    document.body.className = keep.body;
+  }
+
+  const a = html.indexOf('const DAYS = [');
+  const b = html.indexOf('\n];', a);
+  if(a < 0 || b < 0) throw new Error('找不到行程資料位置');
+  html = html.slice(0, a) + 'const DAYS = ' + JSON.stringify(DATA, null, 1) + html.slice(b + 3);
+
+  html = html.replace(/const BUILD = \d+; \/\*BUILD_STAMP\*\//,
+                      'const BUILD = ' + Date.now() + '; /*BUILD_STAMP*/');
+  return html;
+}
+
 document.getElementById('btnExport').onclick = () => {
   try{
-    // 不用 fetch，直接取頁面自身原始碼（file:// 與預覽環境皆可用）
-    let html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
-
-    // 把目前資料寫回 DAYS 定義
-    const a = html.indexOf('const DAYS = [');
-    const b = html.indexOf('\n];', a);
-    if(a < 0 || b < 0){ alert('匯出失敗：找不到行程資料位置'); return; }
-    html = html.slice(0, a) + 'const DAYS = ' + JSON.stringify(DATA, null, 1) + html.slice(b + 3);
-
-    // 蓋上新版本戳，確保別人開啟時一定看到這一版
-    html = html.replace(/const BUILD = \d+; \/\*BUILD_STAMP\*\//,
-                        'const BUILD = ' + Date.now() + '; /*BUILD_STAMP*/');
-
+    const html = buildHTML();
     const d = new Date();
     const name = '沖繩自由行APP_' + (d.getMonth()+1) + ('0'+d.getDate()).slice(-2) + '.html';
     const blob = new Blob([html], {type:'text/html;charset=utf-8'});
@@ -1025,6 +1105,79 @@ document.getElementById('btnExport').onclick = () => {
     alert('匯出失敗：' + e.message);
   }
 };
+/* ============ 發布更新到 GitHub Pages ============
+   權杖只存在本機 localStorage，絕不寫進本檔案（本 repo 是 Public）。
+   沒貼過權杖的裝置＝唯讀，只能看。 */
+const GH_REPO  = 'MHL-1216/okinawa';
+const GH_PATH  = 'index.html';
+const GH_TKKEY = 'okinawa_gh_token';
+
+function pubMsg(kind, text){
+  const el = document.getElementById('pubstate');
+  el.className = 'pubstate on ' + kind;
+  el.textContent = text;
+}
+function b64utf8(str){
+  const bytes = new TextEncoder().encode(str);
+  let bin = '';
+  for(let i=0;i<bytes.length;i+=0x8000){
+    bin += String.fromCharCode.apply(null, bytes.subarray(i, i+0x8000));
+  }
+  return btoa(bin);
+}
+async function gh(method, url, token, body){
+  const opt = {method, headers:{
+    'Authorization':'Bearer ' + token,
+    'Accept':'application/vnd.github+json',
+    'X-GitHub-Api-Version':'2022-11-28'
+  }};
+  if(body){ opt.body = JSON.stringify(body); }
+  const r = await fetch(url, opt);
+  if(!r.ok){
+    const e = await r.json().catch(()=>({}));
+    throw new Error(r.status===401||r.status===403
+      ? '權杖無效或權限不足（需要 Contents: Read and write）'
+      : (e.message || ('HTTP ' + r.status)));
+  }
+  return r.json();
+}
+
+document.getElementById('btnPublish').onclick = async function(){
+  let token = localStorage.getItem(GH_TKKEY);
+  if(!token){
+    token = prompt('第一次發布，請貼上 GitHub 權杖（只會存在這台裝置）：');
+    if(!token) return;
+    token = token.trim();
+  }
+
+  const btn = this;
+  btn.disabled = true;
+  pubMsg('wait','發布中…請勿關閉頁面');
+
+  try{
+    const html = buildHTML();
+    const base = 'https://api.github.com/repos/' + GH_REPO + '/contents/' + GH_PATH;
+
+    // 取目前檔案的 sha（GitHub 要求帶上才能覆蓋）
+    const cur = await gh('GET', base + '?ref=main', token);
+
+    await gh('PUT', base, token, {
+      message: '更新行程 ' + new Date().toLocaleString('zh-TW'),
+      content: b64utf8(html),
+      sha: cur.sha,
+      branch: 'main'
+    });
+
+    localStorage.setItem(GH_TKKEY, token);
+    pubMsg('ok','✅ 已發布。約 30–60 秒後，同行的人重新整理就會看到這一版。');
+  }catch(err){
+    if(/權杖無效/.test(err.message)) localStorage.removeItem(GH_TKKEY);
+    pubMsg('err','❌ 發布失敗：' + err.message);
+  }finally{
+    btn.disabled = false;
+  }
+};
+
 document.getElementById('btnReset').onclick=()=>{
   if(!confirm('還原成原始行程？你的修改會消失。')) return;
   DATA=JSON.parse(JSON.stringify(DEFAULTS));
