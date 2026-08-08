@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#3E6EA8">
+<title>沖繩自由行 · 10/22–10/26</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&family=M+PLUS+Rounded+1c:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --fuji:#3E6EA8;        /* 富士藍 */
+  --fuji-deep:#2A4E7C;
+  --fuji-soft:#E8F0F9;
+  --snow:#FCFDFE;        /* 雪白 */
+  --warm:#F4F1EC;        /* 暖灰 */
+  --warm-deep:#8C8579;
+  --ink:#2B3440;
+  --sub:#7A8593;
+  --line:#E4E7EC;
+  /* 分類色 */
+  --c-food:#E8734A; --c-act:#4FAE9B; --c-shop:#C9739F;
+  --c-spot:#3E6EA8; --c-hotel:#8B7BC4; --c-move:#7A8593;
+  --r:20px;
+  --safe-b:env(safe-area-inset-bottom,0px);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{
+  font-family:"Zen Maru Gothic","M PLUS Rounded 1c",system-ui,sans-serif;
+  background:var(--warm);color:var(--ink);line-height:1.7;
+  padding-bottom:calc(96px + var(--safe-b));
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(circle at 12% 8%, rgba(62,110,168,.05) 0 12px, transparent 13px),
+    radial-gradient(circle at 78% 22%, rgba(232,115,74,.05) 0 9px, transparent 10px),
+    radial-gradient(circle at 40% 60%, rgba(79,174,155,.045) 0 14px, transparent 15px),
+    radial-gradient(circle at 88% 78%, rgba(62,110,168,.045) 0 10px, transparent 11px);
+  background-size:280px 280px;
+}
+.app{max-width:520px;margin:0 auto;padding:0 14px}
+
+/* ===== Header ===== */
+header{
+  background:linear-gradient(150deg,var(--fuji) 0%,var(--fuji-deep) 70%);
+  color:#fff;border-radius:0 0 28px 28px;padding:22px 20px 20px;
+  position:relative;overflow:hidden;box-shadow:0 4px 18px rgba(42,78,124,.18)
+}
+header::after{content:"";position:absolute;right:-30px;top:-40px;width:150px;height:150px;
+  border-radius:50%;background:rgba(255,255,255,.08)}
+header::before{content:"";position:absolute;right:30px;bottom:-50px;width:90px;height:90px;
+  border-radius:50%;background:rgba(255,255,255,.07)}
+header .sub{font-size:12px;letter-spacing:.2em;color:#BFD8F2;font-weight:500}
+header h1{font-size:23px;font-weight:900;margin:4px 0 8px;letter-spacing:.02em}
+header .pills{display:flex;gap:6px;flex-wrap:wrap;position:relative;z-index:1}
+header .pill{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.22);
+  padding:3px 11px;border-radius:999px;font-size:12px;font-weight:500}
+
+/* ===== Tab pages ===== */
+.page{display:none;padding-top:16px;animation:fade .28s ease}
+.page.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* ===== Bottom nav ===== */
+nav.tabbar{
+  position:fixed;left:50%;transform:translateX(-50%);
+  bottom:calc(14px + var(--safe-b));width:calc(100% - 28px);max-width:492px;z-index:60;
+  background:rgba(252,253,254,.93);backdrop-filter:blur(14px);
+  border:1px solid var(--line);border-radius:22px;
+  box-shadow:0 8px 26px rgba(43,52,64,.14);
+  display:grid;grid-template-columns:repeat(4,1fr);padding:7px 6px;
+}
+nav.tabbar button{
+  background:none;border:none;font-family:inherit;cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;gap:2px;
+  padding:6px 2px;border-radius:15px;color:var(--sub);font-size:11px;font-weight:700;
+  transition:.2s
+}
+nav.tabbar button .ic{font-size:19px;line-height:1.1}
+nav.tabbar button.on{background:var(--fuji-soft);color:var(--fuji)}
+nav.tabbar button:active{transform:scale(.94)}
+
+/* ===== Common card ===== */
+.card{background:var(--snow);border:1px solid var(--line);border-radius:var(--r);
+  padding:16px;margin-bottom:12px;box-shadow:0 2px 8px rgba(43,52,64,.04)}
+.sec-title{display:flex;align-items:center;gap:8px;margin:20px 2px 10px}
+.sec-title h2{font-size:17px;font-weight:900;color:var(--fuji-deep)}
+.sec-title .ln{flex:1;height:2px;background:var(--line);border-radius:2px}
+
+/* ===== Day switcher ===== */
+.dayswitch{display:flex;gap:7px;overflow-x:auto;padding:2px 0 10px;scrollbar-width:none}
+.dayswitch::-webkit-scrollbar{display:none}
+.dayswitch button{
+  flex:0 0 auto;background:var(--snow);border:1px solid var(--line);border-radius:16px;
+  padding:8px 13px;font-family:inherit;font-weight:700;font-size:12px;color:var(--sub);
+  cursor:pointer;transition:.2s;line-height:1.35;text-align:center
+}
+.dayswitch button b{display:block;font-size:14px;color:var(--ink)}
+.dayswitch button.on{background:var(--fuji);border-color:var(--fuji);color:#D9E8F8;
+  box-shadow:0 4px 12px rgba(62,110,168,.3)}
+.dayswitch button.on b{color:#fff}
+.dayswitch button:active{transform:scale(.95)}
+
+/* ===== Day header ===== */
+.dayhead{background:linear-gradient(135deg,var(--fuji-soft),#F7FAFD);
+  border:1px solid #D6E4F3;border-radius:var(--r);padding:15px 17px;margin-bottom:14px}
+.dayhead .dt{font-size:12px;color:var(--fuji);font-weight:700;letter-spacing:.06em}
+.dayhead h3{font-size:18px;font-weight:900;margin:3px 0 6px}
+.dayhead .rt{font-size:12.5px;color:var(--sub);font-weight:500}
+
+/* ===== Spot card ===== */
+.spot{background:var(--snow);border:1px solid var(--line);border-radius:var(--r);
+  margin-bottom:11px;overflow:hidden;box-shadow:0 2px 8px rgba(43,52,64,.045)}
+.spot .top{padding:14px 15px 12px;border-left:5px solid var(--c-spot)}
+.spot.food .top{border-left-color:var(--c-food)}
+.spot.act  .top{border-left-color:var(--c-act)}
+.spot.shop .top{border-left-color:var(--c-shop)}
+.spot.hotel .top{border-left-color:var(--c-hotel)}
+.spot.move .top{border-left-color:var(--c-move)}
+.spot .hd{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:5px}
+.cat{font-size:11px;font-weight:700;padding:2px 9px;border-radius:999px;color:#fff;background:var(--c-spot)}
+.spot.food .cat{background:var(--c-food)} .spot.act .cat{background:var(--c-act)}
+.spot.shop .cat{background:var(--c-shop)} .spot.hotel .cat{background:var(--c-hotel)}
+.spot.move .cat{background:var(--c-move)}
+.tm{font-size:12px;font-weight:700;color:var(--fuji);background:var(--fuji-soft);
+  padding:2px 9px;border-radius:999px}
+.spot h4{font-size:15.5px;font-weight:900;margin-bottom:3px}
+.spot .desc{font-size:13px;color:var(--sub);line-height:1.65}
+.stay{display:inline-block;font-size:11.5px;color:var(--warm-deep);background:var(--warm);
+  padding:2px 9px;border-radius:8px;margin-top:7px;font-weight:500}
+
+.tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:9px}
+.tag{font-size:11px;font-weight:700;padding:3px 9px;border-radius:8px}
+.t-eat{background:#FDEDE6;color:#C4552C} .t-buy{background:#FAEBF3;color:#A34E7C}
+.t-pic{background:#E6F4F1;color:#2F7D6E} .t-must{background:#EAF1FA;color:#2A4E7C}
+
+.info{padding:0 15px 12px;display:grid;gap:6px}
+.info .r{display:flex;gap:8px;font-size:12px;background:var(--warm);
+  border-radius:12px;padding:8px 11px;align-items:flex-start}
+.info .r .k{flex:0 0 auto;font-weight:700;color:var(--fuji-deep)}
+.info .r .v{color:var(--sub);flex:1}
+.info .r.pic{background:#F0F8F6}
+.info .r.pic .k{color:#2F7D6E}
+
+.acts{display:flex;gap:7px;padding:0 15px 14px}
+.acts a,.acts label{flex:1;text-align:center;font-size:12.5px;font-weight:700;
+  padding:9px;border-radius:13px;text-decoration:none;cursor:pointer;transition:.15s}
+.acts a{background:var(--fuji);color:#fff}
+.acts label{background:var(--warm);color:var(--warm-deep);border:1px dashed #CFC9BE}
+.acts a:active,.acts label:active{transform:scale(.96)}
+.acts input[type=file]{display:none}
+.shots{display:flex;gap:6px;overflow-x:auto;padding:0 15px 14px;scrollbar-width:none}
+.shots::-webkit-scrollbar{display:none}
+.shots img{height:82px;border-radius:12px;border:1px solid var(--line);flex:0 0 auto}
+.shots:empty{display:none}
+
+/* ===== Day footer (穿著/路況) ===== */
+.dayfoot{display:grid;gap:9px;margin:14px 0 4px}
+.ftbox{border-radius:16px;padding:12px 14px;font-size:12.5px;line-height:1.7}
+.ftbox b{display:block;font-size:12px;margin-bottom:3px;letter-spacing:.05em}
+.ft-wear{background:#FFF6EF;border:1px solid #F5DDCC} .ft-wear b{color:#C4552C}
+.ft-road{background:#EFF6F5;border:1px solid #D3E6E2} .ft-road b{color:#2F7D6E}
+.ft-fuel{background:var(--fuji-soft);border:1px solid #D6E4F3} .ft-fuel b{color:var(--fuji-deep)}
+
+/* ===== Weather ===== */
+.wcard{background:var(--snow);border:1px solid var(--line);border-radius:var(--r);
+  padding:15px 16px;margin-bottom:11px;box-shadow:0 2px 8px rgba(43,52,64,.04)}
+.wcard .wt{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.wcard .wd{font-size:12.5px;color:var(--fuji);font-weight:700}
+.wcard .wc{font-size:15px;font-weight:900;margin-top:2px}
+.wcard .wloc{font-size:12px;color:var(--sub);margin-top:2px}
+.wcard .icon{font-size:32px;line-height:1}
+.wmet{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:11px}
+.wmet div{background:var(--warm);border-radius:13px;padding:8px 6px;text-align:center}
+.wmet .lab{font-size:10.5px;color:var(--sub)}
+.wmet .val{font-size:14.5px;font-weight:900;color:var(--fuji-deep)}
+.wwear{margin-top:9px;background:#FFF6EF;border:1px solid #F5DDCC;border-radius:13px;
+  padding:9px 12px;font-size:12.5px}
+.wwear b{color:#C4552C}
+
+/* ===== Map ===== */
+.maplink{display:block;background:var(--snow);border:1px solid var(--line);border-radius:var(--r);
+  padding:14px 16px;text-decoration:none;color:var(--ink);margin-bottom:10px;
+  display:flex;align-items:center;gap:12px;box-shadow:0 2px 8px rgba(43,52,64,.04)}
+.maplink .pin{font-size:22px}
+.maplink .t{font-weight:900;font-size:14px}
+.maplink .s{font-size:12px;color:var(--sub)}
+.maplink .go{margin-left:auto;color:var(--fuji);font-weight:700;font-size:13px}
+.routemap{background:var(--snow);border:1px solid var(--line);border-radius:var(--r);
+  padding:16px;margin-bottom:12px}
+.rline{display:flex;align-items:flex-start;gap:11px;position:relative;padding-bottom:16px}
+.rline:last-child{padding-bottom:0}
+.rline::before{content:"";position:absolute;left:11px;top:24px;bottom:0;width:2px;
+  background:linear-gradient(var(--fuji),var(--fuji-soft));border-radius:2px}
+.rline:last-child::before{display:none}
+.rdot{flex:0 0 24px;height:24px;border-radius:50%;background:var(--fuji);color:#fff;
+  font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;z-index:1}
+.rtext .rn{font-weight:900;font-size:13.5px}
+.rtext .rs{font-size:12px;color:var(--sub)}
+
+/* ===== Tools ===== */
+.tool{background:var(--snow);border:1px solid var(--line);border-radius:var(--r);
+  margin-bottom:12px;overflow:hidden;box-shadow:0 2px 8px rgba(43,52,64,.04)}
+.tool>summary{list-style:none;cursor:pointer;padding:15px 16px;display:flex;
+  align-items:center;gap:10px;font-weight:900;font-size:15px}
+.tool>summary::-webkit-details-marker{display:none}
+.tool>summary .ic{font-size:19px}
+.tool>summary .cnt{margin-left:auto;font-size:12px;color:var(--sub);font-weight:700}
+.tool>summary::after{content:"›";margin-left:6px;color:var(--sub);font-size:20px;
+  transform:rotate(90deg);transition:.2s}
+.tool[open]>summary::after{transform:rotate(-90deg)}
+.tool .body{padding:0 16px 16px;border-top:1px dashed var(--line);padding-top:13px}
+
+.packcat{margin-bottom:14px}
+.packcat h5{font-size:13px;font-weight:900;color:var(--fuji-deep);margin-bottom:7px;
+  display:flex;align-items:center;gap:6px}
+.pitem{display:flex;align-items:center;gap:9px;padding:8px 10px;background:var(--warm);
+  border-radius:13px;margin-bottom:6px;font-size:13px}
+.pitem.done{opacity:.5}
+.pitem.done .nm{text-decoration:line-through}
+.pitem .chk{flex:0 0 20px;height:20px;border-radius:7px;border:2px solid #CFC9BE;
+  background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  font-size:12px;color:#fff;transition:.15s}
+.pitem.done .chk{background:var(--c-act);border-color:var(--c-act)}
+.pitem .nm{flex:1}
+.qty{display:flex;align-items:center;gap:5px}
+.qty button{width:24px;height:24px;border-radius:8px;border:1px solid var(--line);
+  background:#fff;font-family:inherit;font-weight:900;color:var(--fuji);cursor:pointer;font-size:14px}
+.qty button:active{transform:scale(.9)}
+.qty span{min-width:20px;text-align:center;font-weight:900;font-size:13px}
+.pitem .del{background:none;border:none;color:#C9A9A9;font-size:16px;cursor:pointer;padding:0 2px}
+.addrow{display:flex;gap:6px;margin-top:8px}
+.addrow input{flex:1;border:1px solid var(--line);border-radius:12px;padding:9px 12px;
+  font-family:inherit;font-size:13px;background:#fff;color:var(--ink)}
+.addrow input:focus{outline:2px solid var(--fuji-soft);border-color:var(--fuji)}
+.addrow button{background:var(--fuji);color:#fff;border:none;border-radius:12px;
+  padding:0 15px;font-family:inherit;font-weight:700;font-size:13px;cursor:pointer}
+.addrow button:active{transform:scale(.95)}
+
+.rule{display:flex;gap:10px;padding:10px 0;border-bottom:1px dashed var(--line);font-size:13px}
+.rule:last-child{border-bottom:none}
+.rule .em{font-size:17px;flex:0 0 auto}
+.rule b{display:block;font-size:13px}
+.rule span{font-size:12.5px;color:var(--sub)}
+
+.sos{display:flex;align-items:center;gap:11px;background:var(--warm);border-radius:14px;
+  padding:11px 13px;margin-bottom:8px;text-decoration:none;color:var(--ink)}
+.sos.red{background:#FDEDE9;border:1px solid #F5D5CC}
+.sos .n{flex:0 0 auto;font-size:19px;font-weight:900;color:var(--fuji-deep);letter-spacing:.02em}
+.sos.red .n{color:#C4552C}
+.sos .t{font-weight:900;font-size:13.5px}
+.sos .s{font-size:11.5px;color:var(--sub);line-height:1.5}
+
+.docrow{display:flex;gap:10px;align-items:flex-start;background:var(--warm);border-radius:14px;
+  padding:11px 13px;margin-bottom:8px;font-size:13px}
+.docrow .em{font-size:17px}
+.docrow b{display:block}
+.docrow span{font-size:12.5px;color:var(--sub)}
+.docrow .num{font-weight:900;color:var(--fuji-deep)}
+.note{font-size:11.5px;color:var(--sub);text-align:center;margin-top:6px;line-height:1.7}
+
+
+/* ===== 編輯模式 ===== */
+.editbar{display:flex;gap:8px;align-items:center;margin-bottom:10px}
+.exportbtn{width:100%;background:var(--snow);border:1px solid var(--line);border-radius:14px;
+  padding:11px;margin-bottom:10px;font-family:inherit;font-weight:700;font-size:13.5px;
+  color:var(--fuji-deep);cursor:pointer}
+.exportbtn:active{transform:scale(.97)}
+.editbtn.big{flex:3;background:linear-gradient(135deg,var(--fuji),var(--fuji-deep));color:#fff;
+  border-color:var(--fuji);box-shadow:0 4px 14px rgba(62,110,168,.28);padding:12px 10px;font-size:15px}
+.editbtn.big.on{background:linear-gradient(135deg,#4FAE9B,#2F7D6E);border-color:#2F7D6E;
+  box-shadow:0 4px 14px rgba(79,174,155,.3)}
+.editbtn.sm{flex:1}
+.editbtn small{display:block;font-size:10.5px;font-weight:500;opacity:.85;margin-top:2px}
+.editbtn{flex:1;background:var(--snow);border:1px solid var(--line);border-radius:14px;
+  padding:10px;font-family:inherit;font-weight:700;font-size:13px;color:var(--fuji);cursor:pointer}
+.editbtn.on{background:var(--fuji);color:#fff;border-color:var(--fuji)}
+.editbtn.warn{color:#C4552C}
+.editbtn:active{transform:scale(.96)}
+.spot .edit{padding:0 15px 14px;display:none;gap:7px;flex-direction:column}
+body.editing .spot .edit{display:flex}
+.edit input,.edit textarea,.edit select{width:100%;border:1px solid var(--line);border-radius:11px;
+  padding:8px 11px;font-family:inherit;font-size:13px;background:#fff;color:var(--ink)}
+.edit textarea{resize:vertical;min-height:56px;line-height:1.6}
+.edit input:focus,.edit textarea:focus,.edit select:focus{outline:2px solid var(--fuji-soft);border-color:var(--fuji)}
+.edit .lbl{font-size:11px;font-weight:700;color:var(--sub);margin-bottom:-3px}
+.edit .row2{display:flex;gap:7px}
+.edit .row2>div{flex:1}
+.edit .ops{display:flex;gap:6px;margin-top:3px}
+.edit .ops button{flex:1;border:1px solid var(--line);background:var(--warm);border-radius:11px;
+  padding:8px;font-family:inherit;font-weight:700;font-size:12.5px;cursor:pointer;color:var(--warm-deep)}
+.edit .ops .rm{color:#C4552C;background:#FDEDE9;border-color:#F5D5CC}
+.edit .ops button:active{transform:scale(.95)}
+.testbtn{width:100%;background:var(--fuji-soft);border:1px solid #C9DCF0;border-radius:11px;
+  padding:8px;margin-top:5px;font-family:inherit;font-weight:700;font-size:12.5px;
+  color:var(--fuji-deep);cursor:pointer}
+.testbtn:active{transform:scale(.97)}
+.insbtn{width:100%;border:2px dashed #CFC9BE;background:var(--warm);border-radius:12px;
+  padding:9px;font-family:inherit;font-weight:700;font-size:12.5px;color:var(--fuji);
+  cursor:pointer;margin-top:4px}
+.insbtn:active{transform:scale(.97)}
+.edithint{display:none;background:#FFF6EF;border:1px solid #F5DDCC;border-radius:14px;
+  padding:11px 14px;font-size:12.5px;line-height:1.7;color:#7A5B4C;margin-bottom:10px}
+.edithint b{color:#C4552C}
+body.editing .edithint{display:block}
+.addspot{display:none;width:100%;border:2px dashed #CFC9BE;background:var(--snow);
+  border-radius:var(--r);padding:13px;font-family:inherit;font-weight:700;font-size:13.5px;
+  color:var(--fuji);cursor:pointer;margin-bottom:12px}
+body.editing .addspot{display:block}
+body.editing .dayfoot .ftbox{position:relative}
+.ftedit{display:none;width:100%;margin-top:7px}
+body.editing .ftedit{display:block}
+.fab{display:none;position:fixed;left:50%;transform:translateX(-50%);
+  bottom:calc(96px + var(--safe-b));z-index:70;
+  background:linear-gradient(135deg,#E8734A,#D45B33);color:#fff;border:none;
+  border-radius:999px;padding:12px 26px;font-family:inherit;font-weight:700;font-size:14.5px;
+  box-shadow:0 6px 20px rgba(232,115,74,.42);cursor:pointer}
+.fab:active{transform:translateX(-50%) scale(.95)}
+body.editing .fab{display:block}
+.saved{position:fixed;left:50%;transform:translateX(-50%);bottom:120px;z-index:99;
+  background:#2B3440;color:#fff;padding:10px 20px;border-radius:999px;font-size:13px;
+  font-weight:700;opacity:0;transition:.3s;pointer-events:none}
+.saved.show{opacity:.95}
+
+footer.ft{text-align:center;font-size:11.5px;color:var(--sub);padding:18px 0 4px;line-height:1.9}
+</style>
+</head>
+<body>
+<header>
+  <div class="sub">OKINAWA ROAD TRIP</div>
+  <h1>沖繩自由行 🌺</h1>
+  <div class="pills">
+    <span class="pill">10/22 – 10/26</span>
+    <span class="pill">5天4夜</span>
+    <span class="pill">4大人 · 自駕</span>
+  </div>
+</header>
+
+<div class="app">
+
+<!-- ============ 行程 ============ -->
+<section class="page on" id="p-trip">
+  <div class="editbar">
+    <button class="editbtn big" id="btnEdit">✏️ 編輯行程<small>新增 · 修改 · 排序 · 刪除</small></button>
+    <button class="editbtn warn sm" id="btnReset">↩︎<small>還原</small></button>
+  </div>
+  <button class="exportbtn" id="btnExport">📤 匯出最新版（傳給同行的人）</button>
+  <div class="edithint" id="edithint">
+    ✏️ 編輯模式已開啟：每張卡片下方可修改內容、排序、刪除，或按
+    <b>「＋ 在此下方插入新景點」</b>新增。修改會自動儲存。
+  </div>
+  <div class="dayswitch" id="dayswitch"></div>
+  <div id="dayzone"></div>
+</section>
+
+<!-- ============ 天氣 ============ -->
+<section class="page" id="p-weather">
+  <div class="sec-title"><h2>🌤 每日天氣總覽</h2><div class="ln"></div></div>
+  <div id="weatherzone"></div>
+  <div class="card" style="background:var(--fuji-soft);border-color:#D6E4F3">
+    <div style="font-weight:900;font-size:14px;margin-bottom:6px">📌 10 月下旬的沖繩</div>
+    <div style="font-size:12.5px;line-height:1.75;color:#41566E">
+      白天仍有 28–30°C 可穿短袖，入夜降到 24–25°C 海風偏涼，<b>薄外套一定要帶</b>。
+      10 月是全年雲量最少、最適合旅遊的月份，但仍有秋颱可能，出發前 10 天請再查
+      <b>tenki.jp</b> 或 <b>WeatherNews</b>。此時海水浴場多已陸續停開，下水前先查各海灘官網。
+      <div class="note" style="text-align:left;margin-top:7px">※ 下列為 10 月下旬氣候平均值，非即時預報</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 地圖 ============ -->
+<section class="page" id="p-map">
+  </div>
+  <div class="sec-title"><h2>🗺 行程路線圖</h2><div class="ln"></div></div>
+  <div class="routemap">
+    <div class="rline"><div class="rdot">1</div><div class="rtext">
+      <div class="rn">機場 → 瀨長島 → 本部</div><div class="rs">先看夕陽(18:10)，晚餐後北上 · 高速約 2 小時</div></div></div>
+    <div class="rline"><div class="rdot">2</div><div class="rtext">
+      <div class="rn">本部半島定點</div><div class="rs">水族館・海洋博公園・備瀨崎 · 幾乎不開車</div></div></div>
+    <div class="rline"><div class="rdot">3</div><div class="rtext">
+      <div class="rn">古宇利 → 名護 → 美國村</div><div class="rs">最北尾巴收掉後一路向南 · 約 1.5 小時</div></div></div>
+    <div class="rline"><div class="rdot">4</div><div class="rtext">
+      <div class="rn">美國村 → 南城 → 那霸</div><div class="rs">達摩寺・玉泉洞 46分/27km，再回那霸</div></div></div>
+    <div class="rline"><div class="rdot">5</div><div class="rtext">
+      <div class="rn">那霸 → 機場周邊</div><div class="rs">波上宮・港川・首里城・Outlet 一路向南</div></div></div>
+  </div>
+  <div class="sec-title"><h2>📍 一鍵導航</h2><div class="ln"></div></div>
+  <div id="mapzone"></div>
+  <div class="card" style="background:#EFF6F5;border-color:#D3E6E2">
+    <div style="font-weight:900;font-size:14px;margin-bottom:6px">🅿️ 停車小技巧</div>
+    <div style="font-size:12.5px;line-height:1.8;color:#3E5B55">
+      • 景點／賣場／餐廳多半有<b>自有免費停車場</b>，跟指揮停即可<br>
+      • 那霸市區・國際通・松山多為<b>投幣式</b>；可用 <b>akippa</b> App 事先預約車位<br>
+      • 看到「<b>最大料金</b>」＝有每日上限較安心；沒寫＝一直計費到開走<br>
+      • 看到「<b>月極</b>」＝包月車位，<b>絕對別停</b><br>
+      • 臨時找位：Google Maps 搜「駐車場」，或用 ロケスマWEB
+    </div>
+  </div>
+</section>
+
+<!-- ============ 指南 / 工具盒 ============ -->
+<section class="page" id="p-guide">
+  <div class="sec-title"><h2>🧰 行前準備工具盒</h2><div class="ln"></div></div>
+
+  <details class="tool" open>
+    <summary><span class="ic">🎒</span>行李打包清單<span class="cnt" id="packcnt"></span></summary>
+    <div class="body" id="packzone"></div>
+  </details>
+
+  <details class="tool">
+    <summary><span class="ic">🇯🇵</span>日本旅遊規範提醒</summary>
+    <div class="body">
+      <div class="rule"><span class="em">🚗</span><div><b>靠左行駛・方向燈在右</b><span>雨刷跟方向燈與台灣相反，起步先深呼吸；「止まれ」＝完全停車再走</span></div></div>
+      <div class="rule"><span class="em">🍺</span><div><b>酒駕零容忍</b><span>日本喝一口就違法，同車者也連坐重罰</span></div></div>
+      <div class="rule"><span class="em">📄</span><div><b>國際駕照不通用</b><span>台灣人租車需帶「<b>駕照日文譯本</b>」＋台灣駕照＋護照，缺一不可</span></div></div>
+      <div class="rule"><span class="em">🅿️</span><div><b>不可路邊停車</b><span>看到「月極」是包月車位，停了會被檢舉拖吊</span></div></div>
+      <div class="rule"><span class="em">🗑</span><div><b>垃圾自己帶走</b><span>路上幾乎沒垃圾桶，便利商店的垃圾桶限店內消費使用</span></div></div>
+      <div class="rule"><span class="em">💴</span><div><b>備現金</b><span>小店、部分餐廳（如潛水員牛排）只收現金；投幣停車場也要零錢</span></div></div>
+      <div class="rule"><span class="em">🛁</span><div><b>泡湯禮儀</b><span>先在洗身區沖乾淨再入池，毛巾不可入水；有刺青可能被婉拒</span></div></div>
+      <div class="rule"><span class="em">🧾</span><div><b>免稅門檻</b><span>同店消費滿 ¥5,000 可退稅，需帶護照；免稅品勿在日本境內拆封</span></div></div>
+      <div class="rule"><span class="em">🤫</span><div><b>公共禮儀</b><span>電車、餐廳內避免大聲講電話；不邊走邊吃</span></div></div>
+      <div class="rule"><span class="em">🌀</span><div><b>颱風備案</b><span>10月仍有秋颱機率，出發前查航班；若停飛先聯絡航空公司與飯店</span></div></div>
+    </div>
+  </details>
+
+  <details class="tool">
+    <summary><span class="ic">🆘</span>緊急資訊</summary>
+    <div class="body">
+      <a class="sos red" href="tel:110"><span class="n">110</span>
+        <span><span class="t">警察</span><span class="s">車禍、竊盜、糾紛。車禍務必報警取事故證明，否則保險可能不理賠</span></span></a>
+      <a class="sos red" href="tel:119"><span class="n">119</span>
+        <span><span class="t">消防・救護車</span><span class="s">火災與急病送醫，日本救護車免費</span></span></a>
+      <a class="sos" href="tel:+815038162787"><span class="n">JVH</span>
+        <span><span class="t">日本旅客支援專線 050-3816-2787</span><span class="s">24小時中文服務，事故災害或旅遊諮詢皆可（海外撥 +81-50-3816-2787）</span></span></a>
+
+      <div style="margin-top:14px;padding-top:12px;border-top:1px dashed var(--line)">
+        <div style="font-weight:900;font-size:13.5px;margin-bottom:8px">🇹🇼 台北駐日經濟文化代表處 那霸分處</div>
+        <a class="sos red" href="tel:+819086220000" onclick="return false" style="cursor:default">
+          <span class="n">☎️</span><span><span class="t">急難救助專線</span>
+          <span class="s">日本境內直撥 <b>090-8794-4568</b>／境外 +81-90-8794-4568<br>
+          僅限車禍、搶劫、生命安危等急難；一般護照簽證事務請打辦公室</span></span></a>
+        <div class="docrow"><span class="em">🏢</span><div><b>辦公室電話</b>
+          <span class="num">098-862-7008</span><span>（台灣手機漫遊撥 +81-98-862-7008）</span></div></div>
+        <div class="docrow"><span class="em">📍</span><div><b>地址</b>
+          <span>沖縄県那覇市久茂地 3-15-9 アルテビル那覇 6階<br>就在國際通附近，離 OMO5 很近</span></div></div>
+        <div class="docrow"><span class="em">🕘</span><div><b>服務時間</b>
+          <span>週一至週五 09:00–12:00、13:00–18:00（六日及日本國定假日休館）</span></div></div>
+        <div class="docrow"><span class="em">✉️</span><div><b>電郵</b><span>tecooka@mofa.gov.tw</span></div></div>
+      </div>
+      <div class="note">護照遺失請先向當地警局報案取得證明，再聯繫那霸分處補辦</div>
+    </div>
+  </details>
+
+  <details class="tool">
+    <summary><span class="ic">📁</span>資料總匯</summary>
+    <div class="body">
+      <div style="font-weight:900;font-size:13px;color:var(--fuji-deep);margin-bottom:8px">✈️ 航班資訊</div>
+      <div class="docrow"><span class="em">🛫</span><div><b>去程 10/22（四）</b>
+        <span>台北 <span class="num">09:24</span> → 那霸 <span class="num">約12:20</span>（飛行約1.5h＋時差1h）</span></div></div>
+      <div class="docrow"><span class="em">🛬</span><div><b>回程 10/26（一）</b>
+        <span>那霸 <span class="num">20:10</span> → 台北｜建議 <b>18:00 前</b>到櫃檯</span></div></div>
+
+      <div style="font-weight:900;font-size:13px;color:var(--fuji-deep);margin:14px 0 8px">🏨 飯店訂單</div>
+      <div class="docrow"><span class="em">1️⃣</span><div><b>美麗海皇家景觀飯店</b>
+        <span>10/22–10/24（2晚）· 本部町 · 步行5分到水族館 · 免費停車</span></div></div>
+      <div class="docrow"><span class="em">2️⃣</span><div><b>Vessel Hotel Campana Okinawa</b>
+        <span>10/24–10/25 · 北谷町美浜9-22 · 098-926-1188 · 入住14:00／退房11:00 · 免費停車</span></div></div>
+      <div class="docrow"><span class="em">3️⃣</span><div><b>OMO5 沖繩那霸 by 星野集團</b>
+        <span>10/25–10/26 · 步行8分到國際通 · 停車 ¥1,500/晚（22:00–06:00不可進出）</span></div></div>
+      <div class="note">👉 訂房確認信建議先「離線儲存」到手機，或截圖存相簿，機場沒網路也能出示</div>
+
+      <div style="font-weight:900;font-size:13px;color:var(--fuji-deep);margin:14px 0 8px">🚙 自駕租車憑證</div>
+      <div class="docrow"><span class="em">📋</span><div><b>取車必備三件</b>
+        <span>① 台灣駕照 ② <b>駕照日文譯本</b>（監理站或代表處申辦）③ 護照</span></div></div>
+      <div class="docrow"><span class="em">🕐</span><div><b>取車 10/22 約 12:30</b><span>抓 45–60 分辦手續與保險，別排太趕</span></div></div>
+      <div class="docrow"><span class="em">🕔</span><div><b>還車 10/26 17:00</b><span>還車前先加滿油、留發票；確認是否需滿油還車與 ETC 卡</span></div></div>
+      <div class="docrow"><span class="em">🛡</span><div><b>建議加保</b><span>免責補償（CDW）＋NOC 營業損失補償，出險才不用另賠</span></div></div>
+      <div class="note">憑證、預約號碼可貼在此頁截圖保存 · 車輛四周先拍照存證再開走</div>
+    </div>
+  </details>
+
+  <footer class="ft">
+    沖繩自由行 · 10/22–10/26<br>
+    車程為高速動線估值 · 門票與表演場次請以官方公告為準
+  </footer>
+</section>
+
+</div>
+
+<nav class="tabbar">
+  <button class="on" data-p="p-trip"><span class="ic">📅</span>行程</button>
+  <button data-p="p-guide"><span class="ic">🧰</span>指南</button>
+  <button data-p="p-weather"><span class="ic">🌤</span>天氣</button>
+  <button data-p="p-map"><span class="ic">🗺</span>地圖</button>
+</nav>
+<button class="fab" id="fab" onclick="addSpot()">＋ 新增景點</button>
+<div class="saved" id="toast">已儲存 ✓</div>
+
+<script>
+const G = q => "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(q);
+
+const DAYS = [
+{ d:"DAY 1", date:"10/22 (四)", title:"落地 → 瀨長島夕陽 → 北上入住",
+  route:"機場 → 瀨長島（看夕陽）→ 本部｜18:10 日落，夕陽優先",
+  wear:"落地約 29°C，短袖＋短褲。瀨長島海邊風大、日落後轉涼，薄外套先放車上別托運。",
+  road:"⚠️ 今天核心是 18:10 的日落，取車後直奔瀨長島（15分）別繞路。看完夕陽約 18:40 出發北上，夜間走高速路況單純但注意疲勞，中途可在服務區休息。",
+  fuel:"取車時油是滿的，今天不用加油。北部加油站晚上關得早，明後天再加。",
+  spots:[
+  {c:"move",cat:"交通",t:"12:20",n:"那霸機場落地 · 入境通關",
+   d:"台北 09:24 起飛。入境審查＋領行李預留 1.5 小時，約 13:50 出關。",
+   stay:"約 1.5 小時",
+   tags:[["t-must","必辦"]],
+   park:"—",
+   pic:"航廈外的沖繩花磚牆，拍第一張到達照剛好",
+   map:"那覇空港 国際線ターミナル"},
+  {c:"food",cat:"食物",t:"13:50",n:"機場午餐（國內線 4 樓美食街）",
+   d:"國際線走到國內線約 5 分鐘，4 樓選擇最多：沖繩麵、豬排飯、A&W 漢堡、Blue Seal 冰淇淋。",
+   stay:"約 1 小時",
+   tags:[["t-eat","必吃"]],
+   park:"—",
+   pic:"A&W 麥根沙士與 Blue Seal 紅芋冰是沖繩限定，很有到達感",
+   map:"那覇空港 国内線旅客ターミナル"},
+  {c:"move",cat:"交通",t:"15:00",n:"租車公司取車",
+   d:"搭接駁車前往營業所，辦手續與保險。備妥台灣駕照＋駕照日文譯本＋護照。",
+   stay:"約 45 分",
+   tags:[["t-must","三證缺一不可"]],
+   park:"—",
+   pic:"取車前把車身四周拍一圈存證，還車才不會有爭議",
+   map:"那覇空港 レンタカー送迎場"},
+  {c:"spot",cat:"景點",t:"16:00",n:"瀨長島 Umikaji Terrace ☀️",
+   d:"沖繩小希臘，白色階梯商店街正對西邊海面，是全沖繩最好的日落點之一。飛機從頭頂低空飛過的畫面也在這裡。先逛街等光線變黃金色。",
+   stay:"停留 2.5 小時｜機場出發約 15 分",
+   tags:[["t-pic","必拍"],["t-must","夕陽重點"]],
+   park:"🅿️ 免費（MapCode 33 002 602*22）· 島上單行道，錯過入口要繞一圈 · 傍晚人多，能停就先停",
+   pic:"⭐ 17:40 開始卡位。白色階梯由下往上拍最有希臘感；飛機過頭頂用連拍抓。日落後 20 分的藍調時刻才是最美一段，別急著走",
+   map:"瀬長島ウミカジテラス"},
+  {c:"act",cat:"活動",t:"18:10",n:"日落 · 子寶岩",
+   d:"10 月下旬那霸日落約 18:00–18:10，日落後還有 20–30 分的藍調時刻。子寶岩是情侶能量景點，就在旁邊步行可到。",
+   stay:"約 30 分",
+   tags:[["t-pic","必拍"],["t-must","情侶必訪"]],
+   park:"🅿️ 同瀨長島停車場",
+   pic:"逆光剪影：讓兩人站在海與夕陽之間，相機對亮部測光，人自然變剪影，這張最有紀念性",
+   map:"瀬長島 子宝岩"},
+  {c:"food",cat:"食物",t:"18:45",n:"晚餐：瀨長島島上用餐",
+   d:"⚠️ 重要調整：北部餐廳 18:00–19:00 就打烊，加上今天會晚到，晚餐直接在瀨長島解決最保險。島上有海景餐廳、幸福鬆餅、龍蝦料理，看完夕陽走幾步就到。",
+   stay:"約 1 小時",
+   tags:[["t-eat","必吃"],["t-must","建議在此吃"]],
+   park:"🅿️ 同瀨長島停車場",
+   pic:"夜晚的白色階梯打燈後很有氣氛，跟白天完全不同",
+   map:"瀬長島ウミカジテラス"},
+  {c:"hotel",cat:"酒店",t:"21:30",n:"美麗海皇家景觀飯店 Check-in（Royal View Hotel Churaumi）",
+   d:"吃飽後北上，走沖繩自動車道約 2 小時。就在水族館旁，步行 5 分鐘，明天完全不用開車。",
+   stay:"高速北上約 2 小時",
+   tags:[["t-must","住宿1"]],
+   park:"🅿️ 飯店免費停車約90位 · 先到先停 · 本部町石川938",
+   pic:"北部光害少，飯店陽台外的星空很乾淨",
+   map:"ロイヤルビューホテル美ら海"}
+]},
+
+{ d:"DAY 2", date:"10/23 (五)", title:"北部 · 海洋博一整天",
+  route:"定點本部半島｜走路就到，幾乎不用開車",
+  wear:"整天在戶外，短袖＋防曬（帽子、太陽眼鏡、防曬乳）。水族館館內冷氣強，薄外套帶著。海邊走路建議好走的鞋或涼鞋。",
+  road:"今天車幾乎停在飯店，走路或園區接駁即可，零路況壓力。",
+  fuel:"不需加油。明天要跑古宇利＋名護，可趁今晚在本部先把油加滿。",
+  spots:[
+  {c:"spot",cat:"景點",t:"08:30",n:"美麗海水族館",
+   d:"開門即入，避開 10:30–14:00 人潮高峰。黑潮之海是全世界最大水槽之一。",
+   stay:"館內約 2–2.5 小時｜飯店步行 5 分",
+   tags:[["t-must","必去"],["t-pic","必拍"]],
+   park:"🅿️ 海洋博公園超大免費停車場（今天走路即可）",
+   pic:"黑潮之海前坐低、把人剪影放在水槽左下角，鯨鯊游過來按連拍；玻璃反光可把鏡頭貼近玻璃消除",
+   map:"沖縄美ら海水族館"},
+  {c:"act",cat:"活動",t:"09:30",n:"鬼蝠魟餵食秀",
+   d:"黑潮之海每日 9:30 場，可看到鬼蝠魟在水中後空翻覓食。",
+   stay:"約 20 分",
+   tags:[["t-must","必看"]],
+   park:"—",
+   pic:"側面拍後空翻瞬間，快門調高避免拖影",
+   map:"沖縄美ら海水族館 黒潮の海"},
+  {c:"act",cat:"活動",t:"10:30",n:"海豚秀 ＋ 海豚/海龜餵食體驗",
+   d:"海洋博公園內的免費海豚秀，戶外劇場看得到海景。",
+   stay:"約 1.5 小時",
+   tags:[["t-must","免費"],["t-pic","必拍"]],
+   park:"—",
+   pic:"坐前排偏中央，抓海豚躍出水面的頂點；記得帶防水袋",
+   map:"オキちゃん劇場"},
+  {c:"food",cat:"食物",t:"12:00",n:"INOH 海景餐廳",
+   d:"水族館最高樓層，整片落地窗看海。午間自助有沖繩塔可飯、沖繩麵、紅芋甜點。",
+   stay:"約 1 小時",
+   tags:[["t-eat","必吃"]],
+   park:"🅿️ 同水族館停車場",
+   pic:"靠窗座位逆光剪影＋海平線，紅芋甜點特寫也很上相",
+   map:"美ら海水族館 レストラン イノー"},
+  {c:"spot",cat:"景點",t:"13:00",n:"熱帶・亞熱帶都市綠化植物園",
+   d:"海洋博公園內的免費植物園，南國植物與拍照造景多。",
+   stay:"約 1 小時",
+   tags:[["t-pic","必拍"]],
+   park:"🅿️ 園區內免費",
+   pic:"棕櫚步道用低角度仰拍，天空當背景",
+   map:"熱帯・亜熱帯都市緑化植物園"},
+  {c:"spot",cat:"景點",t:"15:30",n:"備瀨崎 福木林道",
+   d:"兩萬多棵福木夾成的綠色隧道，可租單車慢慢逛，是沖繩最有味道的老聚落。",
+   stay:"約 1 小時",
+   tags:[["t-pic","必拍"]],
+   park:"🅿️ 入口有停車場，部分為投幣式",
+   pic:"林道深處光影斑駁，站在正中央拍出對稱綠色隧道；下午4點前光線最美",
+   map:"備瀬のフクギ並木"},
+  {c:"spot",cat:"景點",t:"16:30",n:"翡翠海灘 Emerald Beach",
+   d:"海洋博公園內的人氣沙灘，三個海灣造型，是看夕陽的好位置。",
+   stay:"約 1 小時",
+   tags:[["t-pic","必拍"]],
+   park:"🅿️ 園區內免費停車",
+   pic:"日落前 30 分色溫最美；沙灘寫字＋倒影是情侶必拍",
+   map:"エメラルドビーチ"}
+]},
+
+{ d:"DAY 3", date:"10/24 (六)", title:"古宇利大橋 → 美國村",
+  route:"北 → 中｜收掉最北尾巴後一路向南",
+  wear:"短袖＋短褲。古宇利橋上風非常大，帽子要壓好或先收起來。晚上美國村海邊涼，薄外套帶著。",
+  road:"週六古宇利上午較好停車，中午後會塞。名護→美國村走高速較快；美國村停好車後全程走路。",
+  fuel:"⛽ 建議在名護市區加滿油（北部油價較高但站多），美國村一帶加油站晚上關較早。",
+  spots:[
+  {c:"spot",cat:"景點",t:"09:40",n:"古宇利大橋・古宇利島",
+   d:"全長 1,960 公尺的跨海大橋，兩側是傳說中的「古宇利藍」。戀之島，情侶必訪。",
+   stay:"停留 1 小時｜飯店出發約 40 分",
+   tags:[["t-pic","必拍"],["t-must","必去"]],
+   park:"🅿️ 橋出口兩側免費停車場（24h・MapCode 485 662 831*22）",
+   pic:"停古宇利側停車場，走到沙灘回頭拍整條大橋；上午順光海色最藍。心形岩要查退潮時間才拍得到",
+   map:"古宇利大橋"},
+  {c:"food",cat:"食物",t:"11:30",n:"潛水員牛排 Restaurant Flipper",
+   d:"1971 年創立的名護美式牛排老店，連駐沖美軍都愛。菲力／沙朗（230g・300g）附沙拉、濃湯、麵包、飲料。",
+   stay:"約 1.5 小時（含候位）",
+   tags:[["t-eat","必吃"],["t-must","只收現金"]],
+   park:"🅿️ 免費自有停車場（MapCode 206 625 820*73）· 週六尖峰難停",
+   pic:"停車場正中央有條隱藏小徑直通海灘，吃飽別急著走，那裡拍夕陽超美",
+   map:"レストラン フリッパー 名護"},
+  {c:"hotel",cat:"酒店",t:"14:00",n:"Vessel Hotel Campana Okinawa",
+   d:"Check-in（14:00）。緊鄰美國村日落海灘，出門就是購物街，10 樓有免費海景展望浴場。",
+   stay:"名護出發約 1 小時",
+   tags:[["t-must","住宿2"]],
+   park:"🅿️ 免費停車（MapCode 33 525 321*72）· 之後全程走路",
+   pic:"從日落海灘方向回拍橘色飯店外觀；夜晚美國村燈景像小樂高",
+   map:"ベッセルホテルカンパーナ沖縄"},
+  {c:"shop",cat:"購物",t:"14:30",n:"美國村 American Village",
+   d:"美式風情商圈，摩天輪、彩繪牆、美式雜貨與潮牌，逛街拍照一次滿足。",
+   stay:"約 3.5 小時",
+   tags:[["t-buy","必買"],["t-pic","必拍"]],
+   park:"🅿️ 車停飯店，走路 5 分內全到",
+   pic:"Depot Island 彩色外牆、摩天輪下仰拍；日落時分整區打燈最好看",
+   map:"美浜アメリカンビレッジ"},
+  {c:"spot",cat:"景點",t:"17:30",n:"日落海灘 Sunset Beach",
+   d:"美國村旁的沙灘，名字就說明一切——沖繩中部最好的夕陽點之一。",
+   stay:"約 1 小時",
+   tags:[["t-pic","必拍"]],
+   park:"🅿️ 飯店走路 3 分",
+   pic:"日落前 20 分抓人物剪影＋橘紅天空；情侶牽手側身逆光最經典",
+   map:"サンセットビーチ 北谷"},
+  {c:"food",cat:"食物",t:"19:00",n:"美國村燒肉 ＋ 展望浴場",
+   d:"晚餐吃燒肉，回飯店泡 10 樓海景展望浴場（開到深夜），一天疲勞全消。",
+   stay:"約 2.5 小時",
+   tags:[["t-eat","必吃"]],
+   park:"🅿️ 走路即可",
+   pic:"燒肉上桌的煙霧瞬間；浴場禁止攝影，用眼睛拍就好",
+   map:"美浜アメリカンビレッジ"},
+  {c:"spot",cat:"景點",t:"21:00",n:"中南部夜景「一顆地球」",
+   d:"知名夜景點，遠望整片市區燈火像一顆發亮的地球。",
+   stay:"約 40 分",
+   tags:[["t-pic","必拍"]],
+   park:"🅿️ 路邊車位少，注意勿擋住民宅",
+   pic:"手機夜景模式＋靠欄杆穩住，曝光 3 秒以上；建議帶小腳架",
+   map:"中城公園 展望台"}
+]},
+
+{ d:"DAY 4", date:"10/25 (日)", title:"玉泉洞 → 那霸國際通",
+  route:"中 → 南 → 那霸｜美國村→達摩寺→玉泉洞 46分/27km",
+  wear:"短袖即可，但玉泉洞內常年約 21°C 且潮濕，<b>務必帶薄外套</b>。洞內步道濕滑，穿防滑好走的鞋，別穿夾腳拖。",
+  road:"週日下午國際通有步行者天國（封街），車直接停 OMO5 再走過去最省事。南城一帶多山路彎道，開慢一點。",
+  fuel:"⛽ 南下前先在美國村或北中城加油；那霸市區加油站油價較高且不好停。",
+  spots:[
+  {c:"spot",cat:"景點",t:"09:40",n:"西來院 達摩寺",
+   d:"沖繩少見的禪宗古寺，以可愛的達摩御守與達摩包聞名，是低調的隱藏景點。",
+   stay:"停留 30 分｜美國村出發約 40 分",
+   tags:[["t-buy","必買"],["t-pic","必拍"]],
+   park:"🅿️ 寺內免費停車",
+   pic:"一整排彩色小達摩排列拍俯視角；買達摩包捧在手心配寺廟背景",
+   map:"西来院 達磨寺 沖縄"},
+  {c:"spot",cat:"景點",t:"10:45",n:"玉泉洞・沖繩世界文化王國",
+   d:"日本第二大鐘乳洞，全長 5,000 公尺開放 890 公尺，超過百萬根鐘乳石。園區還有王國村 DIY、毒蛇博物館與太鼓舞表演。",
+   stay:"約 2.5–3 小時（含午餐）｜門票約 ¥2,000",
+   tags:[["t-must","必去"],["t-pic","必拍"]],
+   park:"🅿️ 免費停車場（MapCode 232 495 330*28）",
+   pic:"洞內善用現有燈光、別開閃光；廣角拍鐘乳石群氣勢最好。手機記得先擦鏡頭，洞內濕氣易起霧",
+   map:"おきなわワールド 玉泉洞"},
+  {c:"food",cat:"食物",t:"12:00",n:"園內午餐（CYURA 島餐廳 / 沖繩麵）",
+   d:"園區內自助餐廳用沖繩在地食材，也可簡單吃碗鰹魚湯底的沖繩麵。",
+   stay:"約 1 小時",
+   tags:[["t-eat","必吃"]],
+   park:"🅿️ 同園區停車場",
+   pic:"沖繩麵配三枚肉的俯拍，木桌背景最好看",
+   map:"おきなわワールド"},
+  {c:"hotel",cat:"酒店",t:"14:15",n:"OMO5 沖繩那霸 by 星野集團",
+   d:"Check-in。步行 8 分到國際通，房內琉球玻璃夜燈是特色。",
+   stay:"玉泉洞出發約 30 分",
+   tags:[["t-must","住宿3"]],
+   park:"🅿️ 附設停車 ¥1,500/晚 · 先到先停 · 22:00–06:00 不可進出",
+   pic:"大廳琉球玻璃燈牆晚上會點亮，是最好拍的角落",
+   map:"OMO5沖縄那覇 by 星野リゾート"},
+  {c:"shop",cat:"購物",t:"15:00",n:"國際通 ＋ 第一牧志公設市場",
+   d:"1.6 公里的那霸主街，伴手禮、藥妝、唐吉訶德一次買齊。市場二樓可代客料理一樓買的海鮮。",
+   stay:"約 4 小時",
+   tags:[["t-buy","必買"],["t-eat","必吃"]],
+   park:"🅿️ 車停 OMO5 用走的；週日下午封街更好逛",
+   pic:"市場一樓的彩色魚貨排列是招牌畫面；國際通夜晚霓虹招牌拍起來很有味道",
+   map:"国際通り 那覇"},
+  {c:"food",cat:"食物",t:"19:00",n:"晚餐（EIBUN 沖繩麵 / 阿古豬炸豬排 / 拉麵 擇一）",
+   d:"EIBUN 是那霸人氣沖繩麵店，阿古豬炸豬排肉質細嫩，國際通拉麵也是口袋名單。",
+   stay:"約 1.5 小時",
+   tags:[["t-eat","必吃"]],
+   park:"🅿️ 走路前往，免找車位",
+   pic:"EIBUN 的擺盤很文青，俯拍就很好看",
+   map:"EIBUN 沖縄そば 那覇"},
+  {c:"act",cat:"活動",t:"20:00",n:"松山 · 夜間表演秀（18+）",
+   d:"那霸松山夜生活區的店家表演。地址：松山 1-5-1 ナムラプラザビル 2F。",
+   stay:"約 1.5 小時｜國際通西側步行約 10 分",
+   tags:[["t-must","建議預約"]],
+   park:"🅿️ 車停 OMO5 走路過去；松山周邊為投幣式停車場",
+   pic:"店內通常禁止攝影，請先詢問店家",
+   map:"那覇市松山1-5-1"}
+]},
+
+{ d:"DAY 5", date:"10/26 (一)", title:"那霸市區 ＋ 機場周邊收尾",
+  route:"那霸 → 機場｜波上宮・港川・瀨長島・Outlet 全在同一線",
+  wear:"短袖＋好走的鞋（今天走路多）。機上冷氣強，薄外套放隨身包不要托運。",
+  road:"全程都在那霸至機場區間，車程都在 20 分內。17:00 前務必抵達租車公司。",
+  fuel:"⛽ <b>還車前務必加滿油並留發票</b>。ASHIBINAA 與機場之間的國道 331 沿線有多家加油站，最後一段順路加。",
+  spots:[
+  {c:"food",cat:"食物",t:"08:30",n:"早餐：阿古豬排三明治 / 幸福鬆餅",
+   d:"阿古豬排三明治是那霸人氣早餐；A Happy Pancake 的舒芙蕾厚鬆餅也是排隊名店。",
+   stay:"約 1 小時",
+   tags:[["t-eat","必吃"]],
+   park:"🅿️ 那霸市區店家多無停車位，建議走路前往",
+   pic:"鬆餅上桌時奶油正在融化的瞬間，側面 45 度拍最厚",
+   map:"幸せのパンケーキ 那覇"},
+  {c:"spot",cat:"景點",t:"09:00",n:"波上宮",
+   d:"建在海崖上的神社，琉球八社之首。書包造型御守是人氣紀念品。",
+   stay:"停留 40 分｜OMO5 步行約 20 分",
+   tags:[["t-pic","必拍"],["t-buy","必買"]],
+   park:"🅿️ 免費約 20 台（MapCode 33 186 220*06）· 參拜完 30 分內須開走 · 滿了隔壁巷多付費停車場",
+   pic:"從旁邊的波之上海灘往上拍，可同時入鏡神社＋海崖＋跨海大橋，這角度最有代表性",
+   map:"波上宮"},
+  {c:"shop",cat:"購物",t:"10:15",n:"港川外人住宅",
+   d:"浦添的老美軍宿舍改造成一整區文青咖啡、甜點與雜貨小店，沖繩最好拍的街區之一。",
+   stay:"約 1.5 小時｜波上宮出發約 20 分",
+   tags:[["t-pic","必拍"],["t-buy","必買"]],
+   park:"🅿️ 各店家共同停車場，車位分散請依店家指示",
+   pic:"白色平房＋門牌號碼是招牌畫面；手拿甜點站在彩色門前拍，是這裡的必拍公式",
+   map:"港川外人住宅街"},
+  {c:"spot",cat:"景點",t:"11:45",n:"首里城公園",
+   d:"琉球王國的象徵。正殿仍在重建中，但可近距離參觀重建現場（全世界少見的體驗），守禮門、城牆與園比屋武御嶽石門都完好。",
+   stay:"約 1.5 小時（含午餐）｜港川出發約 25 分",
+   tags:[["t-pic","必拍"],["t-must","世界遺產"]],
+   park:"🅿️ 縣營停車場 · 小客車約 ¥400 · 車位充足",
+   pic:"守禮門是 2000 日圓紙鈔上的圖案，拿紙鈔跟實景合拍是經典玩法；城牆高處可俯瞰整個那霸市區",
+   map:"首里城公園"},
+  {c:"food",cat:"食物",t:"12:45",n:"首里一帶午餐（首里そば）",
+   d:"首里そば是那霸最有名的沖繩麵店之一，手打麵條有嚼勁，湯頭清爽。⚠️ 常在下午賣完就打烊，建議早點到。",
+   stay:"約 45 分",
+   tags:[["t-eat","必吃"]],
+   park:"🅿️ 店家有小型停車場，位子少",
+   pic:"清透湯頭配三枚肉，俯拍最好看",
+   map:"首里そば 那覇"},
+  {c:"shop",cat:"購物",t:"14:00",n:"ASHIBINAA Outlet",
+   d:"沖繩唯一大型 Outlet，希臘建築風格，GAP、ABC-MART、Adidas、Coach、LE CREUSET 等百家品牌。",
+   stay:"約 2.5 小時｜營業 10:00–20:00",
+   tags:[["t-buy","必買"]],
+   park:"🅿️ 免費約 1,000 個車位（MapCode 232 544 452*22）",
+   pic:"希臘白柱中庭廣場是最好拍的一區；雨天可轉戰旁邊 iias 豐崎的寶可夢旗艦店",
+   map:"沖縄アウトレットモール あしびなー"},
+  {c:"move",cat:"交通",t:"17:00",n:"還車 → 那霸機場",
+   d:"還車後搭租車公司接駁進國際線航廈，辦理登機與退稅。別忘了機場集章。",
+   stay:"還車約 30 分",
+   tags:[["t-must","關鍵時間"]],
+   park:"🅿️ 還車前先加滿油、留發票；車輛四周拍照存證",
+   pic:"國際線航廈的沖繩集章台，把整趟旅程的章蓋在同一頁最有紀念價值",
+   map:"那覇空港 国際線ターミナル"},
+  {c:"move",cat:"交通",t:"20:10",n:"那霸 → 台北",
+   d:"建議 18:00 前抵達櫃檯，國際線建議起飛前 2 小時。",
+   stay:"—",
+   tags:[["t-must","返程"]],
+   park:"—",
+   pic:"登機口窗外的沖繩藍天，最後一張紀念照",
+   map:"那覇空港"}
+]}
+];
+
+const WEATHER = [
+ {d:"10/22 (四)",c:"晴時多雲",i:"🌤",hi:29,lo:24,feel:31,rain:20,loc:"機場 → 瀨長島 → 本部",
+  wear:"短袖＋短褲。瀨長島海邊風大、日落後轉涼，薄外套別托運。"},
+ {d:"10/23 (五)",c:"晴",i:"☀️",hi:30,lo:25,feel:32,rain:10,loc:"本部（海洋博）",
+  wear:"短袖＋防曬乳＋太陽眼鏡＋帽子。館內冷氣強，薄外套帶著。"},
+ {d:"10/24 (六)",c:"多雲時晴",i:"⛅",hi:29,lo:24,feel:30,rain:30,loc:"古宇利 → 北谷",
+  wear:"短袖＋好走的鞋。古宇利橋上風極大，帽子要壓好。"},
+ {d:"10/25 (日)",c:"多雲",i:"☁️",hi:28,lo:24,feel:29,rain:30,loc:"南城 → 那霸",
+  wear:"短袖＋防滑鞋。玉泉洞內約 21°C 且濕，務必帶薄外套。"},
+ {d:"10/26 (一)",c:"晴時多雲",i:"🌤",hi:29,lo:24,feel:30,rain:20,loc:"那霸 → 機場",
+  wear:"短袖＋好走的鞋。機上冷氣強，薄外套放隨身包。"}
+];
+
+const MAPS = [
+ ["沖縄美ら海水族館","美麗海水族館","Day2 · 免費大停車場"],
+ ["古宇利大橋","古宇利大橋","Day3 · 485 662 831*22"],
+ ["レストラン フリッパー 名護","潛水員牛排","Day3 · 206 625 820*73"],
+ ["ベッセルホテルカンパーナ沖縄","Vessel Campana","Day3 住宿 · 33 525 321*72"],
+ ["西来院 達磨寺 沖縄","西來院 達摩寺","Day4 · 免費停車"],
+ ["おきなわワールド 玉泉洞","玉泉洞・沖繩世界","Day4 · 232 495 330*28"],
+ ["OMO5沖縄那覇 by 星野リゾート","OMO5 沖繩那霸","Day4 住宿 · ¥1,500/晚"],
+ ["波上宮","波上宮","Day5 · 33 186 220*06"],
+ ["港川外人住宅街","港川外人住宅","Day5 · 店家共同停車"],
+ ["瀬長島ウミカジテラス","瀨長島 Umikaji Terrace","Day5 · 33 002 602*22"],
+ ["沖縄アウトレットモール あしびなー","ASHIBINAA Outlet","Day5 · 232 544 452*22"],
+ ["那覇空港","那霸機場","還車 17:00"]
+];
+
+const PACK = {
+ "隨身背包 👜":["護照","駕照日文譯本","台灣駕照","現金日圓","信用卡","手機＋充電線","行動電源","eSIM／網卡","筆＋入境卡","口罩","面紙・濕紙巾"],
+ "手提行李（機艙）✈️":["薄外套","貴重物品","相機","隱形眼鏡・藥品","保溫瓶（空）","耳機"],
+ "托運行李 🧳":["短袖上衣","短褲・長褲","內衣褲","泳衣","好走的鞋","涼鞋","盥洗用品","防曬乳","帽子","太陽眼鏡","雨傘・輕便雨衣","轉接頭","小腳架","塑膠袋（裝垃圾）"],
+ "日本購物清單 🛍":["達摩包（達摩寺）","鯨鯊娃娃（水族館）","紅芋塔","泡盛","海鹽・雪鹽","琉球玻璃","波上宮書包御守","藥妝（唐吉訶德）"]
+};
+
+/* ---------- 行程 ---------- */
+const BUILD = 0; /*BUILD_STAMP*/
+const DEFAULTS = JSON.parse(JSON.stringify(DAYS));
+let DATA = load();
+let cur = 0;
+
+function load(){
+  try{
+    const savedBuild = parseInt(localStorage.getItem('okinawa_build')||'0',10);
+    if(BUILD > savedBuild){
+      // 這份檔案比本機存的還新 → 採用檔案內容，清掉舊資料
+      localStorage.removeItem('okinawa_trip_v1');
+      localStorage.setItem('okinawa_build', String(BUILD));
+      return JSON.parse(JSON.stringify(DEFAULTS));
+    }
+    const v=localStorage.getItem('okinawa_trip_v1');
+    if(v) return JSON.parse(v);
+  }catch(e){}
+  return JSON.parse(JSON.stringify(DEFAULTS));
+}
+function save(){
+  try{ localStorage.setItem('okinawa_trip_v1', JSON.stringify(DATA));
+    localStorage.setItem('okinawa_build', String(BUILD));
+    const t=document.getElementById('toast');
+    t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),1200);
+  }catch(e){ alert('儲存失敗，可能是瀏覽器隱私模式'); }
+}
+const esc = v => String(v).replace(/"/g,'&quot;');
+
+const ds = document.getElementById('dayswitch');
+const dz = document.getElementById('dayzone');
+DATA.forEach((day,i)=>{
+  const b=document.createElement('button');
+  b.className = i===0?'on':'';
+  b.innerHTML = day.d.replace('DAY ','Day ')+'<b>'+day.date.split(' ')[0]+'</b>';
+  b.onclick=()=>{
+    [...ds.children].forEach(x=>x.classList.remove('on'));
+    b.classList.add('on'); render(i);
+    window.scrollTo({top:0,behavior:'smooth'});
+  };
+  ds.appendChild(b);
+});
+
+function render(i){
+  cur = i;
+  const day = DATA[i];
+  let h=`<div class="dayhead"><div class="dt">${day.d} · ${day.date}</div>
+    <h3>${day.title}</h3><div class="rt">🧭 ${day.route}</div></div>`;
+  day.spots.forEach((s,j)=>{
+    h+=`<div class="spot ${s.c}"><div class="top">
+      <div class="hd"><span class="cat">${s.cat}</span><span class="tm">${s.t}</span></div>
+      <h4>${s.n}</h4><div class="desc">${s.d}</div>
+      <span class="stay">⏱ ${s.stay}</span>
+      <div class="tags">${s.tags.map(t=>`<span class="tag ${t[0]}">${t[1]}</span>`).join('')}</div>
+    </div>
+    <div class="info">
+      ${s.park!=='—'?`<div class="r"><span class="k">停車</span><span class="v">${s.park}</span></div>`:''}
+      <div class="r pic"><span class="k">📸 拍照</span><span class="v">${s.pic}</span></div>
+    </div>
+    <div class="acts">
+      <a href="${isUrl(s.map)?s.map:G(s.map)}" target="_blank" rel="noopener">🧭 導航</a>
+      <label>📷 加旅記<input type="file" accept="image/*" multiple data-k="d${i}s${j}"></label>
+    </div>
+    <div class="shots" id="sh-d${i}s${j}"></div>
+    <div class="edit">
+      <div class="row2">
+        <div><div class="lbl">時間</div>
+          <input value="${esc(s.t)}" onchange="up(${j},'t',this.value)"></div>
+        <div><div class="lbl">分類</div>
+          <select onchange="upCat(${j},this.value)">
+            <option value="spot"${s.c==='spot'?' selected':''}>景點</option>
+            <option value="food"${s.c==='food'?' selected':''}>食物</option>
+            <option value="act"${s.c==='act'?' selected':''}>活動</option>
+            <option value="shop"${s.c==='shop'?' selected':''}>購物</option>
+            <option value="hotel"${s.c==='hotel'?' selected':''}>酒店</option>
+            <option value="move"${s.c==='move'?' selected':''}>交通</option>
+          </select></div>
+      </div>
+      <div><div class="lbl">名稱</div>
+        <input value="${esc(s.n)}" onchange="up(${j},'n',this.value)"></div>
+      <div><div class="lbl">描述</div>
+        <textarea onchange="up(${j},'d',this.value)">${s.d}</textarea></div>
+      <div><div class="lbl">停留 / 車程</div>
+        <input value="${esc(s.stay)}" onchange="up(${j},'stay',this.value)"></div>
+      <div><div class="lbl">停車資訊</div>
+        <input value="${esc(s.park)}" onchange="up(${j},'park',this.value)"></div>
+      <div><div class="lbl">拍照 tips</div>
+        <textarea onchange="up(${j},'pic',this.value)">${s.pic}</textarea></div>
+      <div><div class="lbl">🧭 導航關鍵字（可貼地址或 Google Maps 網址）</div>
+        <input id="mp${j}" value="${esc(s.map)}" onchange="up(${j},'map',this.value)">
+        <button class="testbtn" onclick="testMap(${j})">🔍 立即測試這個地點</button></div>
+      <div class="ops">
+        <button onclick="mv(${j},-1)">▲ 上移</button>
+        <button onclick="mv(${j},1)">▼ 下移</button>
+        <button class="rm" onclick="rm(${j})">🗑 刪除</button>
+      </div>
+      <button class="insbtn" onclick="ins(${j})">＋ 在此下方插入新景點</button>
+    </div></div>`;
+  });
+  h+=`<button class="addspot" onclick="addSpot()">＋ 在最後新增一個景點</button>`;
+  h+=`<div class="dayfoot">
+    <div class="ftbox ft-wear"><b>👕 建議穿著</b>${day.wear}
+      <textarea class="ftedit" onchange="upDay('wear',this.value)">${day.wear}</textarea></div>
+    <div class="ftbox ft-road"><b>🛣 路況提示</b>${day.road}
+      <textarea class="ftedit" onchange="upDay('road',this.value)">${day.road}</textarea></div>
+    <div class="ftbox ft-fuel"><b>⛽ 加油資訊</b>${day.fuel}
+      <textarea class="ftedit" onchange="upDay('fuel',this.value)">${day.fuel}</textarea></div>
+  </div>`;
+  dz.innerHTML=h;
+  dz.querySelectorAll('input[type=file]').forEach(inp=>{
+    inp.onchange=e=>{
+      const box=document.getElementById('sh-'+inp.dataset.k);
+      [...e.target.files].forEach(f=>{
+        const img=document.createElement('img');
+        img.src=URL.createObjectURL(f); box.appendChild(img);
+      });
+    };
+  });
+}
+
+function up(j,k,v){ DATA[cur].spots[j][k]=v; save(); if(k!=='d'&&k!=='pic') render(cur); }
+function upCat(j,v){
+  const map={spot:'景點',food:'食物',act:'活動',shop:'購物',hotel:'酒店',move:'交通'};
+  DATA[cur].spots[j].c=v; DATA[cur].spots[j].cat=map[v]; save(); render(cur);
+}
+function upDay(k,v){ DATA[cur][k]=v; save(); render(cur); }
+function mv(j,d){
+  const a=DATA[cur].spots, n=j+d;
+  if(n<0||n>=a.length) return;
+  [a[j],a[n]]=[a[n],a[j]]; save(); render(cur);
+}
+function rm(j){
+  if(!confirm('確定刪除「'+DATA[cur].spots[j].n+'」？')) return;
+  DATA[cur].spots.splice(j,1); save(); render(cur);
+}
+function isUrl(v){ return /^https?:\/\//.test(v); }
+function testMap(j){
+  const v=document.getElementById('mp'+j).value.trim();
+  if(!v) return;
+  window.open(isUrl(v) ? v : G(v), '_blank');
+}
+function ins(j){
+  DATA[cur].spots.splice(j+1,0,{c:'spot',cat:'景點',t:'時間',n:'新景點',
+    d:'點下方欄位編輯內容',stay:'停留時間',tags:[],
+    park:'停車資訊',pic:'拍照 tips',map:'沖繩'});
+  save(); render(cur);
+}
+function addSpot(){
+  DATA[cur].spots.push({c:'spot',cat:'景點',t:'時間',n:'新景點',
+    d:'點下方欄位編輯內容',stay:'停留時間',tags:[],
+    park:'停車資訊',pic:'拍照 tips',map:'沖繩'});
+  save(); render(cur);
+  setTimeout(()=>window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'}),100);
+}
+
+document.getElementById('btnEdit').onclick=function(){
+  document.body.classList.toggle('editing');
+  const on=document.body.classList.contains('editing');
+  this.classList.toggle('on',on);
+  this.textContent = on?'✅ 完成編輯':'✏️ 編輯行程';
+};
+document.getElementById('btnExport').onclick = () => {
+  try{
+    // 不用 fetch，直接取頁面自身原始碼（file:// 與預覽環境皆可用）
+    let html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+
+    // 把目前資料寫回 DAYS 定義
+    const a = html.indexOf('const DAYS = [');
+    const b = html.indexOf('\n];', a);
+    if(a < 0 || b < 0){ alert('匯出失敗：找不到行程資料位置'); return; }
+    html = html.slice(0, a) + 'const DAYS = ' + JSON.stringify(DATA, null, 1) + html.slice(b + 3);
+
+    // 蓋上新版本戳，確保別人開啟時一定看到這一版
+    html = html.replace(/const BUILD = \d+; \/\*BUILD_STAMP\*\//,
+                        'const BUILD = ' + Date.now() + '; /*BUILD_STAMP*/');
+
+    const d = new Date();
+    const name = '沖繩自由行APP_' + (d.getMonth()+1) + ('0'+d.getDate()).slice(-2) + '.html';
+    const blob = new Blob([html], {type:'text/html;charset=utf-8'});
+    const url  = URL.createObjectURL(blob);
+
+    const link = document.createElement('a');
+    link.href = url; link.download = name;
+    document.body.appendChild(link); link.click(); link.remove();
+
+    // 若環境擋下載，改開新分頁讓使用者用「分享 → 儲存到檔案」
+    setTimeout(()=>{
+      if(confirm('若沒有出現下載，按「確定」開啟新分頁，再用分享鈕儲存檔案。')){
+        window.open(url, '_blank');
+      }
+      setTimeout(()=>URL.revokeObjectURL(url), 60000);
+    }, 800);
+  }catch(e){
+    alert('匯出失敗：' + e.message);
+  }
+};
+document.getElementById('btnReset').onclick=()=>{
+  if(!confirm('還原成原始行程？你的修改會消失。')) return;
+  DATA=JSON.parse(JSON.stringify(DEFAULTS));
+  localStorage.removeItem('okinawa_trip_v1');
+  render(cur);
+};
+
+render(0);
+
+/* ---------- 天氣 ---------- */
+document.getElementById('weatherzone').innerHTML = WEATHER.map(w=>`
+  <div class="wcard"><div class="wt">
+    <div><div class="wd">${w.d}</div><div class="wc">${w.c}</div>
+      <div class="wloc">📍 ${w.loc}</div></div>
+    <div class="icon">${w.i}</div></div>
+    <div class="wmet">
+      <div><div class="lab">氣溫</div><div class="val">${w.hi}° / ${w.lo}°</div></div>
+      <div><div class="lab">體感</div><div class="val">${w.feel}°</div></div>
+      <div><div class="lab">降雨</div><div class="val">${w.rain}%</div></div>
+    </div>
+    <div class="wwear"><b>👕 穿著建議：</b>${w.wear}</div>
+  </div>`).join('');
+
+/* ---------- 地圖 ---------- */
+document.getElementById('mapzone').innerHTML = MAPS.map(m=>`
+  <a class="maplink" href="${G(m[0])}" target="_blank" rel="noopener">
+    <span class="pin">📍</span>
+    <span><span class="t">${m[1]}</span><span class="s">${m[2]}</span></span>
+    <span class="go">導航 ›</span></a>`).join('');
+
+/* ---------- 打包清單 ---------- */
+let packData = Object.entries(PACK).map(([cat,items])=>({
+  cat, items: items.map(n=>({n,q:1,done:false}))
+}));
+
+function drawPack(){
+  const z=document.getElementById('packzone');
+  z.innerHTML = packData.map((c,ci)=>`
+    <div class="packcat"><h5>${c.cat}</h5>
+      ${c.items.map((it,ii)=>`
+        <div class="pitem ${it.done?'done':''}">
+          <div class="chk" onclick="tog(${ci},${ii})">${it.done?'✓':''}</div>
+          <span class="nm">${it.n}</span>
+          <span class="qty">
+            <button onclick="qty(${ci},${ii},-1)">−</button>
+            <span>${it.q}</span>
+            <button onclick="qty(${ci},${ii},1)">+</button>
+          </span>
+          <button class="del" onclick="del(${ci},${ii})">✕</button>
+        </div>`).join('')}
+      <div class="addrow">
+        <input placeholder="新增項目…" id="in${ci}"
+          onkeydown="if(event.key==='Enter')add(${ci})">
+        <button onclick="add(${ci})">加入</button>
+      </div>
+    </div>`).join('');
+  const all=packData.reduce((a,c)=>a+c.items.length,0);
+  const dn=packData.reduce((a,c)=>a+c.items.filter(i=>i.done).length,0);
+  document.getElementById('packcnt').textContent=`${dn} / ${all}`;
+}
+function tog(c,i){packData[c].items[i].done=!packData[c].items[i].done;drawPack()}
+function qty(c,i,d){const it=packData[c].items[i];it.q=Math.max(1,it.q+d);drawPack()}
+function del(c,i){packData[c].items.splice(i,1);drawPack()}
+function add(c){
+  const el=document.getElementById('in'+c), v=el.value.trim();
+  if(v){packData[c].items.push({n:v,q:1,done:false});drawPack()}
+}
+drawPack();
+
+/* ---------- Tabs ---------- */
+document.querySelectorAll('nav.tabbar button').forEach(b=>{
+  b.onclick=()=>{
+    document.querySelectorAll('nav.tabbar button').forEach(x=>x.classList.remove('on'));
+    document.querySelectorAll('.page').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on');
+    document.getElementById(b.dataset.p).classList.add('on');
+    window.scrollTo({top:0,behavior:'smooth'});
+  };
+});
+</script>
+
+</body>
+</html>
